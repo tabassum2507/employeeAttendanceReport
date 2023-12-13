@@ -23,8 +23,8 @@ app.listen(port, () => {
     console.log("Server is running on Port " + port)
 })
 
-const Employee = require("./models/employee")
-const Attendance = require("./models/attendance")
+const Employee = require('./models/employee')
+const Attendance = require("./models/attendance.js")
 
 //endpoint to register an employee
 app.post("/addEmployee", async(req, res) => {
@@ -42,9 +42,9 @@ app.post("/addEmployee", async(req, res) => {
         } = req.body
         
         //create a new employee
-        const newEmployee = new employeeId({
-            employeeId,
+        const newEmployee = new Employee({
             employeeName,
+            employeeId,
             designation,
             phoneNumber,
             dateOfBirth,
@@ -53,7 +53,6 @@ app.post("/addEmployee", async(req, res) => {
             salary,
             address
         })
-
         await newEmployee.save()
 
         res.status(201).json({message: "Employee saved successfully", employee: newEmployee});

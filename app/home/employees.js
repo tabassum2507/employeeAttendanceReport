@@ -4,12 +4,13 @@ import axios from 'axios'
 import { Ionicons, AntDesign  } from '@expo/vector-icons'; 
 import { TextInput } from 'react-native-gesture-handler';
 import { useRouter } from 'expo-router';
+import SearchResults from '../../components/SearchResults';
 
 const employees = () => {
     const [employees, setEmployees] = useState([]) 
     const [input, setInput] = useState("")
     const router = useRouter()
-    
+
     useEffect(() => {
     const fetchEmployeeData = async() => {
         try{
@@ -23,9 +24,6 @@ const employees = () => {
     }
     fetchEmployeeData()
     }, [])
-
-    console.log("employyessss===>", employees)
-
    
   return (
     <View style={{flex: 1, backgroundColor: "#fff"}}>
@@ -49,8 +47,8 @@ const employees = () => {
 
         {employees.length > 0 && (
           <View>
-            <Pressable>
-            <AntDesign name="pluscircleo" size={24} color="black" />
+            <Pressable onPress={() => router.push("/home/addDetails")}>
+            <AntDesign name="pluscircle" size={24} color="#0072b1" />
             </Pressable>
           </View>
         )}
@@ -58,8 +56,8 @@ const employees = () => {
       </View>
 
       {employees.length > 0 ? (
-        // <SearchResults data={employees} input={input} setInput={setInput} />
-        <Text>Hello</Text>
+         <SearchResults data={employees} input={input} setInput={setInput} />
+       
       ) : (
         <View
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
@@ -69,7 +67,7 @@ const employees = () => {
           <Pressable onPress={() => router.push("/home/addDetails")}>
             <AntDesign
               style={{ marginTop: 30 }}
-              name="pluscircle"
+              name="pluscircleo"
               size={24}
               color="black"
             />
